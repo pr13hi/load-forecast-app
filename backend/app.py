@@ -66,19 +66,19 @@ def create_app(config_class=Config):
     def forbidden(error):
         return jsonify({'error': 'Access forbidden'}), 403
     
-    # ===== FUTURE BLUEPRINT REGISTRATION =====
-    # Uncomment these when you create the route files
+    # ===== BLUEPRINT REGISTRATION =====
     
-    # from routes.auth import auth_bp
+    
+    from routes.auth import auth_bp
     # from routes.predictions import pred_bp
     # from routes.admin import admin_bp
     # from routes.feedback import feedback_bp
-    #
-    # app.register_blueprint(auth_bp, url_prefix='/api/auth')
+    app.register_blueprint(auth_bp, url_prefix='/api/auth')
     # app.register_blueprint(pred_bp, url_prefix='/api/predict')
     # app.register_blueprint(admin_bp, url_prefix='/api/admin')
     # app.register_blueprint(feedback_bp, url_prefix='/api/feedback')
-    
+    print(app.url_map)
+
     return app
 
 if __name__ == '__main__':
