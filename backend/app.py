@@ -70,11 +70,11 @@ def create_app(config_class=Config):
     
     
     from routes.auth import auth_bp
-    # from routes.predictions import pred_bp
+    from routes.predictions import pred_bp
     # from routes.admin import admin_bp
     # from routes.feedback import feedback_bp
     app.register_blueprint(auth_bp, url_prefix='/api/auth')
-    # app.register_blueprint(pred_bp, url_prefix='/api/predict')
+    app.register_blueprint(pred_bp, url_prefix='/api/predict')
     # app.register_blueprint(admin_bp, url_prefix='/api/admin')
     # app.register_blueprint(feedback_bp, url_prefix='/api/feedback')
     print(app.url_map)

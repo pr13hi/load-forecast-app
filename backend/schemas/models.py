@@ -35,3 +35,19 @@ class User(db.Model):
             "is_verified": self.is_verified,
             "is_active": self.is_active,
         }
+    
+class Prediction(db.Model):
+    __tablename__ = 'predictions'
+
+    prediction_id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'), nullable=False)
+    date = db.Column(db.Date, nullable=False)
+    hour = db.Column(db.Integer, nullable=False)
+    temperature = db.Column(db.Float, nullable=False)
+    month = db.Column(db.Integer)
+    weekday = db.Column(db.Integer)
+    predicted_load = db.Column(db.Float, nullable=False)
+    lower_bound = db.Column(db.Float)
+    upper_bound = db.Column(db.Float)
+    model_used = db.Column(db.String(50), default='LSTM+TWSVR')
+    timestamp = db.Column(db.DateTime, default=datetime.utcnow)
