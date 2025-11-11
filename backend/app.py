@@ -5,6 +5,7 @@ from config import Config
 from schemas.models import db
 import os
 
+
 def create_app(config_class=Config):
     """Create and configure Flask application"""
     app = Flask(__name__)
