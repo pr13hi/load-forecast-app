@@ -1,157 +1,104 @@
-# ⚡ Load Forecasting Application  
-**LSTM + Twin Support Vector Regression for Hourly Electric Load Forecasting**
+# Load Forecaster
 
-## 🧭 Overview  
-The **Load Forecasting Application** is a full-stack machine learning system designed for **hourly electric load forecasting**.  
-It features an intuitive **React-based frontend** and a secure **Flask-based backend**, allowing users to register, log in, make load predictions, and view their forecast history stored in a PostgreSQL database.  
-
-The backend integrates **deep learning (LSTM)** and **Twin Support Vector Regression (Twin-SVR)** models to produce accurate load predictions, supporting both individual and future batch forecasting capabilities.
+A full-stack web app for hourly electric load forecasting with model explainability and personal prediction history.
 
 ---
 
-## ✨ Features  
+## Features
 
-### 🔧 Backend  
-- Modular **Flask API** architecture using blueprints (authentication, prediction, etc.)  
-- **JWT-based authentication** with secure registration, login, and logout  
-- **Password hashing** and role-based user management  
-- **CORS enabled** for local React integration  
-- **SQLAlchemy ORM** for database management (PostgreSQL)  
-- API endpoints for **health checks** and **status monitoring**  
-- Robust **error handling and structured logging**
-
-### 💻 Frontend  
-- **React app** with React Router for multi-page navigation  
-- Responsive design featuring: **Home, Login, Register, Dashboard, Forecast, Profile**  
-- Persistent authentication via **JWT tokens stored in localStorage**  
-- Interactive **forecasting form** connected to Flask API  
-- Dynamic **dashboard** with navigation and placeholder analytics  
-- **React Bootstrap** for professional UI design  
+- **User Authentication:** Register, login, and secure all endpoints with JWT.  
+- **Dashboard:** Run new predictions, see your 20 most recent forecasts, and export results.  
+- **Forecasting:** Modern single-point forecast form, leveraging LSTM + Twin SVR, with confidence intervals.  
+- **Prediction History:** All predictions are stored for logged-in users in a searchable history table.  
+- **Profile Page:** View and (soon) update your profile info; single-click logout.  
+- **Responsive UI:** Clean, mobile-ready design with professional branding and logo.  
+- **Error Handling:** Friendly messages if not logged in.
 
 ---
 
-## 🧠 Tech Stack  
+## Quick Start
 
-| Layer | Technologies |
-|-------|---------------|
-| **Frontend** | React, React Router, React Bootstrap, Chart.js |
-| **Backend** | Flask, SQLAlchemy, PostgreSQL |
-| **Machine Learning** | TensorFlow/Keras (LSTM), Twin Support Vector Regression |
-| **Authentication** | JWT, Werkzeug password hashing |
+### Backend
 
----
+1. Create a virtualenv and activate it:
 
-## ⚙️ Installation & Setup  
-
-### 🐍 Backend Setup  
-
-1. **Create and activate a virtual environment:**  
    ```bash
    python -m venv venv
-   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   source venv/bin/activate  # or .\venv\Scripts\activate on Windows
    ```
 
-2. **Install dependencies:**  
+2. Install requirements:
+
    ```bash
    pip install -r requirements.txt
    ```
 
-3. **Set environment variables:**  
-   ```bash
-   export FLASK_ENV=development
-   export SECRET_KEY=your_secret_key
-   export JWT_SECRET_KEY=your_jwt_secret
-   export DATABASE_URL=postgresql://user:password@localhost:5432/loadforecastdb
+3. Copy and edit `.env` or set environment variables:
+
+   ```
+   FLASK_ENV=development
+   SECRET_KEY=your_secret
+   JWT_SECRET_KEY=your_jwt_secret
    ```
 
-4. **Run the Flask app:**  
+4. Run the Flask app:
+
    ```bash
-   python app.py
-   ```
-   - Backend runs at: **http://localhost:5000**
-
----
-
-### ⚛️ Frontend Setup  
-
-1. **Navigate to the frontend directory:**  
-   ```bash
-   cd frontend
+   flask run
    ```
 
-2. **Install dependencies:**  
+### Frontend
+
+1. Navigate to `/frontend` folder.  
+2. Run:
+
    ```bash
    npm install
-   ```
-
-3. **Run the React app:**  
-   ```bash
    npm start
    ```
-   - Frontend runs at: **http://localhost:3000**
+
+3. Visit [http://localhost:3000](http://localhost:3000).
 
 ---
 
-## 📂 Repository Structure  
+## Folder Structure
 
 ```
-load-forecast-app/
-│
-├── backend/                    # Flask backend (blueprints, models, routes)
-│   ├── auth/                   # Authentication routes and logic
-│   ├── prediction/             # Forecast API endpoints
-│   ├── models/                 # SQLAlchemy ORM models
-│   ├── utils/                  # Helpers and config loaders
-│   ├── requirements.txt        # Python dependencies
-│   └── ...
-│
-├── frontend/                   # React frontend
-│   ├── src/
-│   │   ├── pages/              # UI pages (Home, Login, Register, etc.)
-│   │   ├── components/         # Shared UI components
-│   │   └── utils/              # API and auth helpers
-│   └── package.json
-│
-├── app.py                      # Flask entry point
-├── config.py                   # Configuration and environment variables
-└── README.md                   # Project documentation
+/backend
+└── app.py, routes/, schemas/, ...
+
+/frontend
+└── src/
+    pages/
+    components/
+    utils/
+    assets/ (custom logo here)
 ```
 
 ---
 
-## 🚀 Usage  
-Once both servers are running:  
-1. Visit **http://localhost:3000**.  
-2. Register or log in to your account.  
-3. Navigate to the **Forecast** page and input parameters for prediction.  
-4. View results and (in future versions) access your prediction history.
+## Tech Stack
+
+- **Backend:** Python, Flask, JWT (flask-jwt-extended), SQLAlchemy  
+- **Frontend:** ReactJS, React Router, Bootstrap, Fetch API  
+- **ML Model:** LSTM + SVR, `joblib` serialization
 
 ---
 
-## 🔮 Future Plans  
-- Add **forecast history tracking and export** (CSV/Excel)  
-- Support **batch prediction uploads**  
-- Implement **advanced analytics and reporting dashboards**  
-- Deploy full-stack app to **cloud (AWS/GCP/Render)**  
-- Integrate **user profile management and settings**
+## Attribution & Credits
+
+- Dashboard and UI inspired by analytics dashboards and pro web apps.  
+- ML concepts from recent academic load forecasting literature.
 
 ---
 
-## 🧩 Troubleshooting  
-| Issue | Possible Solution |
-|-------|--------------------|
-| Flask server not starting | Ensure virtual environment is active and `requirements.txt` is installed |
-| JWT token errors | Verify correct `JWT_SECRET_KEY` in environment variables |
-| CORS issue between frontend & backend | Confirm both run on localhost and Flask CORS is enabled |
-| Database connection error | Check PostgreSQL service and correct `DATABASE_URL` |
+## License
+
+MIT
 
 ---
 
-## 👥 Contributors  
-- **Prachi Shaw** – Full Stack Developer  
-- Open for community contributions!  
+## Contact
 
----
-
-## 📜 License  
-This project is licensed under the **MIT License** – see the [LICENSE](LICENSE) file for details.
+Maintained by [pr13hi](https://github.com/pr13hi).  
+Forks and PRs welcome!
