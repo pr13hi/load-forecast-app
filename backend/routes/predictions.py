@@ -70,3 +70,24 @@ def predict_single():
         "upper_bound": float(upper[0]),
         "confidence_interval": f"{lower[0]:.2f} - {upper[0]:.2f}"
     }), 200
+
+@pred_bp.route('/history', methods=['GET'])
+@jwt_required()
+def get_prediction_history():
+    user_id = get_jwt_identity()
+    predictions = Prediction.query.filter_by(user_id=user_id).order_by(Prediction.timestamp.desc()).limit(20).all()
+
+    history = []
+    for p in predictions:
+        history.append({
+            "date": p.date.strftime("%Y-%m-%d") if hasattr(p.date, 'strftime') else p.date,
+            "hour": p.hour,
+            "temperature": p.temperature,
+            "predicted_load": p.predicted_load,
+            "lower_bound": p.lower_bound,
+            "upper_bound": p.upper_bound,
+            "model_used": p.model_used,
+            "timestamp": p.timestamp.strftime("%Y-%m-%d %H:%M")
+        })
+
+    return jsonify(history), 200

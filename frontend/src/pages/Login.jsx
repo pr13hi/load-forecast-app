@@ -23,7 +23,7 @@ const Login = () => {
     setLoading(true);
     try {
       const resp = await loginUser(form.email, form.password);
-      saveToken(resp.token);
+      saveToken(resp.access_token);
       setLoading(false);
       navigate("/dashboard");
     } catch (err) {
